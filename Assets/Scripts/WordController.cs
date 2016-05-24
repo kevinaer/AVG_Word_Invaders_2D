@@ -77,9 +77,10 @@ public class WordController : MonoBehaviour {
         float verticalPosition = position.y + direction.y * velocity;
         float horizontalPosition = position.x;
 
-        //Gets the height
+        //Gets the dimensions
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
         float height = collider.size.y * transform.localScale.y;
+        float width = collider.size.x * transform.localScale.x;
         if (verticalPosition <= height / 2)
         {
             //Sets the word to shootable
@@ -88,7 +89,7 @@ public class WordController : MonoBehaviour {
         } else
         {
             //Updates horizontal position like normal
-            horizontalPosition = position.x + direction.x * velocity;
+            horizontalPosition = Mathf.Clamp(position.x + direction.x * velocity, -worldWidth + width, worldWidth - width);
         }
         this.transform.position = new Vector2(horizontalPosition, verticalPosition);
     }
