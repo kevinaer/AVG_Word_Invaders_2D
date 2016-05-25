@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\RemoveByTime.cs" />
+    <Compile Include="Assets\Scripts\StartScreenButtonManager.cs" />
     <Compile Include="Assets\Scripts\WordController.cs" />
     <Compile Include="Assets\Scripts\WordGenerator.cs" />
   </ItemGroup>

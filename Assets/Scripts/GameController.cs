@@ -5,6 +5,7 @@ using System.Collections;
 public class GameController : MonoBehaviour {
     public Text scoreText;
     public Text gameStatusText;
+    public GameObject restartHUD;
     private int score;
     private bool gameOver = false;
 	// Use this for initialization
@@ -30,7 +31,14 @@ public class GameController : MonoBehaviour {
     public void GameOver()
     {
         gameOver = true;
+        StartCoroutine(GameOverSetUp());
+    }
+
+    IEnumerator GameOverSetUp()
+    {
+        yield return new WaitForSeconds(1);
         gameStatusText.text = "GAME OVER!";
+        restartHUD.SetActive(true);
     }
 
     public bool isGameOver()

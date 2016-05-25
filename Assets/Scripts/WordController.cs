@@ -86,6 +86,8 @@ public class WordController : MonoBehaviour {
             //Sets the word to shootable
             verticalPosition = height / 2;
             vulenerable = true;
+            GetComponent<Rigidbody2D>().isKinematic = false;
+            direction = Vector2.zero;
         } else
         {
             //Updates horizontal position like normal

@@ -7,7 +7,7 @@ public class WordGenerator : MonoBehaviour {
 
 	public GameObject wordPrefab;
 	public float spacing;
-    public float readingRate = 5;
+    public float readingWait;
     public GameObject marginMarker;
     public GameObject player;
     public GameController gameController;
@@ -80,7 +80,7 @@ public class WordGenerator : MonoBehaviour {
             wordController.gameController = gameController;
             wordController.Invoke("WakeUp", 0);
             //Updates variables for next update conditions
-            nextRead = Time.time + readingRate;
+            nextRead = Time.time + readingWait;
             currentIndex++;
         }
         if (wordsDestroyed == paragraph.Count)
@@ -149,7 +149,7 @@ public class WordGenerator : MonoBehaviour {
             initializeWord(wordString);
         }
         //Initializes first "reading" instance
-        nextRead = Time.time + readingRate;
+        nextRead = Time.time + readingWait;
     }
 
     //Gets the raw alphabetical characters in a string
