@@ -6,14 +6,20 @@ using System.Collections.Generic;
 public class WordGenerator : MonoBehaviour {
 
 	public GameObject wordPrefab;
+    //Variables involving line spacing
 	public float spacing;
     public float readingWait;
     public GameObject marginMarker;
+    public GameObject endMarker;
+    public float marginHeight = 0.45f;
+    //Variables involving other game objects
     public GameObject player;
     public GameController gameController;
     public GameObject bullet;
-    public GameObject endMarker;
-    public float marginHeight = 0.45f;
+    //Variables involving sound
+    public AudioSource pencilSound;
+    public AudioSource eraserSound;
+    //Variables involving the word objects
     private float nextRead;
     private List<GameObject> paragraph = new List<GameObject>();
     private Dictionary<String, Boolean> isWordAggresive = new Dictionary<string, bool>();
@@ -23,8 +29,8 @@ public class WordGenerator : MonoBehaviour {
     private int wordsDestroyed = 0;
     private Vector2 position;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         LoadData();
         LoadSentence();
         CreateWords();
@@ -74,14 +80,7 @@ public class WordGenerator : MonoBehaviour {
 	void Update () {
 	    if (Time.time > nextRead && currentIndex < paragraph.Count && !gameController.isGameOver())
         {
-            //Enables movement in the word
-            WordController wordController = paragraph[currentIndex].GetComponent<WordController>();
-            wordController.player = player;
-            wordController.gameController = gameController;
-            wordController.Invoke("WakeUp", 0);
-            //Updates variables for next update conditions
-            nextRead = Time.time + readingWait;
-            currentIndex++;
+            Read();
         }
         if (wordsDestroyed == paragraph.Count)
         {
@@ -91,6 +90,21 @@ public class WordGenerator : MonoBehaviour {
             CreateWords();
         }
 	}
+
+    // "Reads" a word
+    void Read()
+    {
+        pencilSound.Stop();
+        pencilSound.Play();
+        //Enables movement in the word
+        WordController wordController = paragraph[currentIndex].GetComponent<WordController>();
+        wordController.player = player;
+        wordController.gameController = gameController;
+        wordController.Invoke("WakeUp", 0);
+        //Updates variables for next update conditions
+        nextRead = Time.time + readingWait;
+        currentIndex++;
+    }
 
     //Updates words destroyed count
     public void UpdateDestroyed()
@@ -164,5 +178,10 @@ public class WordGenerator : MonoBehaviour {
             }
         }
         return newWord.ToLower();
+    }
+
+    public void PlayEraseSound()
+    {
+        eraserSound.Play();
     }
 }

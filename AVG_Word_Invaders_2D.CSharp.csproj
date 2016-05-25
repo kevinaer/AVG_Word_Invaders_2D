@@ -72,6 +72,8 @@
     <Compile Include="Assets\Scripts\WordGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Audio\BGM\Read.txt" />
+    <None Include="Assets\Credits.txt" />
     <None Include="Assets\Database\Data.txt" />
     <None Include="Assets\Database\Sentence.txt" />
   </ItemGroup>

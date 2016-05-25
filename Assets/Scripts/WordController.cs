@@ -110,6 +110,7 @@ public class WordController : MonoBehaviour {
         {
             if (other.tag == "Bullet" && vulenerable)
             {
+                generator.PlayEraseSound();
                 if (adjective)
                 {
                     gameController.AddScore(2);
@@ -117,11 +118,15 @@ public class WordController : MonoBehaviour {
                     gameController.AddScore(1);
                 }
                 Destroy(other.gameObject);
-                generator.UpdateDestroyed();
-                Destroy(gameObject);
+                StartCoroutine(DestroySelf());
             }
         }
     }
 
-
+    IEnumerator DestroySelf()
+    {
+        yield return new WaitForSeconds(0.1f);
+        generator.UpdateDestroyed();
+        Destroy(gameObject);
+    }
 }
